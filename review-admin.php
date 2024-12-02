@@ -8,18 +8,26 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div class="reviews_container">
 
         <?php
-            include "includes/mockReviewData.php";
+            include "model/database.php";
+            include "model/reviews.php";
+            $reviews = getReviews();
             foreach ($reviews as $review) {
-                foreach ($review as $data=>$value)
-                echo("$value[reviewFormUserName]");
+                foreach ($review as $singleReview) {
+                    foreach ($singleReview as $deeper)
+                    // echo("<div class='card'><div class='card-title'>Review: $review[reviewFormUserName]" . 
+
+                    // "</div></div>");
+                    echo($deeper['reviewFormUserName']);
+                }
+                //echo($review);
             }
         ?>
-
     </div>
 </body>
 </html>

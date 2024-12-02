@@ -1,0 +1,15 @@
+
+axios
+    .get("https://ozarktechwebdev.com/ozarktechwebdev_allelectric/reviews.php")
+    .then(function (response) {
+        const reviews = response.data;
+        let reviewsDiv = document.createElement("div");
+        cardDiv.setAttribute("class", "");
+        reviews.forEach((review) => {
+            let reviewCard = document.createElement("div");
+            reviewCard.setAttribute("class", "card card-body");
+            reviewCard.innerHTML = "<h4 class='card-title'>review[reviewer]</h4>
+                <p class='card-text'> review[comment]
+            ";
+        });
+    });
