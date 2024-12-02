@@ -17,13 +17,15 @@
             include "model/database.php";
             include "model/reviews.php";
             $reviews = getReviews();
+            print_r($reviews);
             foreach ($reviews as $review) {
+                //echo($review);
                 foreach ($review as $singleReview) {
-                    foreach ($singleReview as $deeper)
+                    //echo($singleReview);
                     // echo("<div class='card'><div class='card-title'>Review: $review[reviewFormUserName]" . 
 
                     // "</div></div>");
-                    echo($deeper['reviewFormUserName']);
+                    //echo($deeper['reviewFormUserName']);
                 }
                 //echo($review);
             }
