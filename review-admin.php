@@ -7,27 +7,62 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div class="reviews_container">
 
+        <form class="text-center">
+            <span class="showAllReviewsSpan">
+                <label for="showAllReviews">Show All Reviews:</label>
+                <input type="checkbox" id="showAllReviews" name="showAllReviews">
+            </span>
+        </form>
+
         <?php
             include "model/database.php";
             include "model/reviews.php";
             $reviews = getReviews();
-            print_r($reviews);
-            foreach ($reviews as $review) {
-                //echo($review);
-                foreach ($review as $singleReview) {
-                    //echo($singleReview);
-                    // echo("<div class='card'><div class='card-title'>Review: $review[reviewFormUserName]" . 
 
-                    // "</div></div>");
-                    //echo($deeper['reviewFormUserName']);
+            if (isset($_POST['approveReview'])) {
+                approveReview($_POST['approveReview']);
+                header("Refresh:0");
+            }
+
+            // print_r($reviews);
+            foreach ($reviews as $review=>$data) {
+
+                $stars = '';
+
+                switch ($data['reviewFormRating']) {
+
+                    case 1: 
+                        $stars = "<span class='star'></span>";
+                        break;
+                    case 2: 
+                        $stars = "<span class='star'></span><span class='star'></span>";
+                        break;
+                    case 3:
+                        $stars = "<span class='star'></span><span class='star'></span><span class='star'></span>";
+                        break;
+                    case 4:
+                        $stars = "<span class='star'></span><span class='star'></span><span class='star'></span><span class='star'></span>";
+                        break;
+                    case 5:
+                        $stars = "<span class='star'></span><span class='star'></span><span class='star'></span><span class='star'></span><span class='star'></span>";
+                        break;
                 }
-                //echo($review);
+
+                if ($data['reviewFormApprovedDate'] == null) {
+                echo("<div class='card'><div class='card-title text-center'>$data[reviewFormUserName] says...<span><form method='POST'><button class='btn btn-primary approveButton' id='approveReview' name='approveReview' value='$data[reviewId]' title='Approve review #$data[reviewFormApprovedDate]'>Approve</button></form></span></div>" . 
+                        "<div class='reviewRating text-center'>$stars</div>" .
+                            "<div class='card-body'>" .
+                                "$data[reviewFormComment]" .
+                            "</div>" .
+                        "</div>
+                    </div>");
+                }
             }
         ?>
     </div>
