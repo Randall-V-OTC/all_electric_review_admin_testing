@@ -11,14 +11,15 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
+    <?php include_once "includes/navbar.php"; ?>
     <div class="reviews_container">
 
-        <form class="text-center">
+        <!-- <form class="text-center">
             <span class="showAllReviewsSpan">
                 <label for="showAllReviews">Show All Reviews:</label>
                 <input type="checkbox" id="showAllReviews" name="showAllReviews">
             </span>
-        </form>
+        </form> -->
 
         <?php
             include "model/database.php";
@@ -55,12 +56,12 @@
                 }
 
                 if ($data['reviewFormApprovedDate'] == null) {
-                echo("<div class='card'><div class='card-title text-center'>$data[reviewFormUserName] says...<span><form method='POST'><button class='btn btn-primary approveButton' id='approveReview' name='approveReview' value='$data[reviewId]' title='Approve review #$data[reviewFormApprovedDate]'>Approve</button></form></span></div>" . 
+                echo("<div class='card'><div class='card-title text-center'>$data[reviewFormUserName] says...</div>" . 
                         "<div class='reviewRating text-center'>$stars</div>" .
                             "<div class='card-body'>" .
                                 "$data[reviewFormComment]" .
-                            "</div>" .
-                        "</div>
+                            "</div>" . "<span class='text-center'><form method='POST'><button class='btn btn-primary approveButton' id='approveReview' name='approveReview' value='$data[reviewId]' title='Approve review #$data[reviewFormApprovedDate]'>Approve</button></form></span>"
+                        . "</div>
                     </div>");
                 }
             }
